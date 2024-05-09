@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\JWTAuthDotNet7.props" />
+</Project>
