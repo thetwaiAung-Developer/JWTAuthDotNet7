@@ -71,3 +71,4 @@ D:\Projects\Training_Projects\TWA.Training\JWTAuthDotNet7\obj\Debug\net7.0\refin
 D:\Projects\Training_Projects\TWA.Training\JWTAuthDotNet7\obj\Debug\net7.0\JWTAuthDotNet7.pdb
 D:\Projects\Training_Projects\TWA.Training\JWTAuthDotNet7\obj\Debug\net7.0\JWTAuthDotNet7.genruntimeconfig.cache
 D:\Projects\Training_Projects\TWA.Training\JWTAuthDotNet7\obj\Debug\net7.0\ref\JWTAuthDotNet7.dll
+D:\Projects\Training_Projects\TWA.Training\JWTAuthDotNet7\bin\Debug\net7.0\TimeZoneConverter.dll

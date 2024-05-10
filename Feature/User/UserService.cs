@@ -32,6 +32,7 @@ namespace JWTAuthDotNet7.Feature.User
                 UserName = requestModel.UserName,
                 Password = await _encryptionService.EncryptAsync(requestModel.Password),
                 PhoneNumber = requestModel.PhoneNumber,
+                RoleId = requestModel.RoleId
             };
 
             await _context.RegisterModel.AddAsync(register);
@@ -58,6 +59,8 @@ namespace JWTAuthDotNet7.Feature.User
             responseModel.UserName = userModel.UserName;
             responseModel.Password = await _encryptionService.DecryptAsync(userModel.Password);
             responseModel.PhoneNumber = userModel.PhoneNumber;
+            responseModel.RoleId = userModel.RoleId;
+
             responseModel.ResponseMessage = "Success";
             return responseModel;
         }

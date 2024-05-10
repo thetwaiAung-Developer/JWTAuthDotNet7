@@ -15,6 +15,7 @@ namespace JWTAuthDotNet7.Feature.Role
             _roleService = roleService;
         }
 
+        [HttpPost]
         public async Task<IActionResult> Save(RoleRequestModel request)
         {
             var responseMessage = string.Empty;
