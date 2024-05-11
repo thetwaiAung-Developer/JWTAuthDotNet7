@@ -1,5 +1,6 @@
 ﻿using JWTAuthDotNet7.Models.RequestModels;
 using JWTAuthDotNet7.Models.ResponseModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,7 +33,8 @@ namespace JWTAuthDotNet7.Feature.User
             return Ok(responseMessage);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             RegisterResponeModel responseModel = new();
