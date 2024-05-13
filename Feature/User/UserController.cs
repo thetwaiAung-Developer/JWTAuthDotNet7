@@ -3,6 +3,7 @@ using JWTAuthDotNet7.Models.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 
 namespace JWTAuthDotNet7.Feature.User
 {
@@ -37,10 +38,12 @@ namespace JWTAuthDotNet7.Feature.User
         [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
+            var accessToken = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
+
             RegisterResponeModel responseModel = new();
             try
             {
-                responseModel = await _userService.GetUserById(id);
+                responseModel = await _userService.GetUserById(id, accessToken);
             }
             catch (Exception ex)
             {

@@ -64,18 +64,14 @@ namespace JWTAuthDotNet7.Feature.Login
             var tokenObject = new JwtSecurityToken(
                                         issuer: _configuration["JWT:ValidateIssuer"],
                                         audience: _configuration["JWT:ValidateAudience"],
-                                        expires: ToMyanmarDateTime().AddSeconds(100),
+                                        //expires: DateTimeHelper.ToMyanmarDateTime().AddSeconds(100),
+                                        expires: DateTime.Now.AddSeconds(20),
                                         claims: claims,
                                         signingCredentials: new SigningCredentials(authKey, SecurityAlgorithms.HmacSha256)
                 );
 
             string token = new JwtSecurityTokenHandler().WriteToken(tokenObject);
             return token;
-        }
-
-        private DateTime ToMyanmarDateTime()
-        {
-            return TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TZConvert.GetTimeZoneInfo("Asia/Yangon"));
         }
     }
 }

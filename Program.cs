@@ -3,6 +3,7 @@ using JWTAuthDotNet7.Feature.Login;
 using JWTAuthDotNet7.Feature.Role;
 using JWTAuthDotNet7.Feature.User;
 using JWTAuthDotNet7.Helper;
+//using JWTAuthDotNet7.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -39,7 +40,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                          ValidIssuer = builder.Configuration["JWT:ValidateIssuer"],
                          ValidAudience = builder.Configuration["JWT:ValidateAudience"],
                          IssuerSigningKey = new SymmetricSecurityKey(
-                                                    Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+                                                    Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+                         ValidateLifetime = true,
+                         ClockSkew = TimeSpan.Zero,
                      };
                  });
 
@@ -51,6 +54,8 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RoleService>();
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<EncryptionService>();
+builder.Services.AddScoped<AuthorizationHelper>();
+//builder.Services.AddScoped<AuthenticationMiddleWare>();
 
 #endregion
 
@@ -64,6 +69,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//app.UseMiddleware<AuthenticationMiddleWare>();
 
 app.UseAuthentication();
 app.UseAuthorization();

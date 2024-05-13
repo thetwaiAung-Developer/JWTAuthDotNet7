@@ -10,11 +10,13 @@ namespace JWTAuthDotNet7.Feature.User
     {
         private readonly AppDbContext _context;
         private readonly EncryptionService _encryptionService;
+        private readonly AuthorizationHelper _authorizationHelper;
 
-        public UserService(AppDbContext context, EncryptionService encryptionService)
+        public UserService(AppDbContext context, EncryptionService encryptionService, AuthorizationHelper authorizationHelper)
         {
             _context = context;
             _encryptionService = encryptionService;
+            _authorizationHelper = authorizationHelper;
         }
 
         public async Task<string> Save(RegisterRequestModel requestModel)
@@ -42,9 +44,15 @@ namespace JWTAuthDotNet7.Feature.User
             return responseMessage;
         }
 
-        public async Task<RegisterResponeModel> GetUserById(int id)
+        public async Task<RegisterResponeModel> GetUserById(int id, string accessToken)
         {
             RegisterResponeModel responseModel = new();
+            var checkUserAuth = _authorizationHelper.CheckUserAuthentication(accessToken);
+            if (checkUserAuth.RespCode != "I001")
+            {
+                responseModel.ResponseMessage = "Invalid Token";
+                return responseModel;
+            }
 
             var isExistUser = _context.RegisterModel.Any(x => x.Id == id);
             if (!isExistUser)
